@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">FireBaseHW</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="toolbar_title">Ваши сообщения</string>
+    <string name="login_fragment_email_edit_text_hint">Email</string>
+    <string name="login_fragment_password_edit_text_hint">Password</string>
+    <string name="login_fragment_buttonl_name_text">Log In</string>
+    <string name="login_fragment_text_don_t_have_an_accoun_sign_in">Don`t have an accoun sign in</string>
+    <string name="main_fragment_email_edit_text_hint">Email</string>
+    <string name="main_fragment_password_edit_text_hint">Password</string>
+    <string name="main_fragment_confirm_password_edit_text_hint">Confirm password</string>
+    <string name="main_fragment_sign_in_button_name_text">Sign In</string>
+    <string name="main_fragment_text_already_have_an_account_login">Already have an account? Login</string>
+    <string name="item_list_name_from_text">viktorivanov@mail.ru</string>
+    <string name="item_list_mail_text">Добрый день</string>
+</resources>

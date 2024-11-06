@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="4dp"
+    android:layout_marginTop="8dp">
+
+    <TextView
+        android:id="@+id/mailNameFromTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/item_list_name_from_text"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/mailTextTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/item_list_mail_text"
+        android:textColor="@color/black"
+        android:textStyle="normal"
+        android:textSize="15sp"/>
+
+</LinearLayout>
