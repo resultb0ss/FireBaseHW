@@ -57,9 +57,8 @@ class BaseFragment : Fragment() {
         adapterRecycler.setUserClickListener(
             object : CustomAdapter.OnUserClickListener {
                 override fun onUserClick(user: UserData, position: Int) {
-//                    deleteUser(user)
-                    Toast.makeText(requireContext(),"Кликнули на ${user.name}",
-                        Toast.LENGTH_SHORT).show()
+                    deleteUser(user)
+
                 }
             }
         )
@@ -79,13 +78,20 @@ class BaseFragment : Fragment() {
 
     }
 
-    private fun deleteUser(user: UserData){
+    private fun deleteUser(user: UserData) {
         val id = FirebaseAuth.getInstance().currentUser!!.uid
         val database = Firebase.database.reference.child("users")
             .child(id)
-        val userMapKey = user.name
-        database.removeValue()
-        readUsers()
+
+        database.child(user.name).removeValue().addOnSuccessListener {
+
+            Toast.makeText(requireContext(), "Пользователь ${user.name} удален", Toast.LENGTH_SHORT)
+                .show()
+        }.addOnFailureListener {
+            Toast.makeText(requireContext(), "Пользователь не удален", Toast.LENGTH_SHORT).show()
+        }
+
+        adapterRecycler.notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
