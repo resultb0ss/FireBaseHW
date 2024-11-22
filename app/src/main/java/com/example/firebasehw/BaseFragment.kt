@@ -18,7 +18,8 @@ class BaseFragment : Fragment() {
 
     private var _binding: FragmentBaseBinding? = null
     private val binding get() = _binding!!
-    var item: Int? = null
+    private var listUserFromFirebase: MutableList<UserData> = mutableListOf()
+    private lateinit var adapterRecycler: CustomAdapter
 
 
     override fun onCreateView(
@@ -26,6 +27,9 @@ class BaseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBaseBinding.inflate(inflater, container, false)
+
+        adapterRecycler = CustomAdapter(listUserFromFirebase)
+        binding.baseFragmentRecyclerViewRV.adapter = adapterRecycler
 
         return binding.root
     }
@@ -50,6 +54,17 @@ class BaseFragment : Fragment() {
             }
         }
 
+        adapterRecycler.setUserClickListener(
+            object : CustomAdapter.OnUserClickListener {
+                override fun onUserClick(user: UserData, position: Int) {
+//                    deleteUser(user)
+                    Toast.makeText(requireContext(),"Кликнули на ${user.name}",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
+        )
+
+
         binding.baseFragmentReadButtonBTN.setOnClickListener {
             readUsers()
         }
@@ -64,12 +79,21 @@ class BaseFragment : Fragment() {
 
     }
 
+    private fun deleteUser(user: UserData){
+        val id = FirebaseAuth.getInstance().currentUser!!.uid
+        val database = Firebase.database.reference.child("users")
+            .child(id)
+        val userMapKey = user.name
+        database.removeValue()
+        readUsers()
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     private fun readUsers() {
         val id = FirebaseAuth.getInstance().currentUser!!.uid
         Firebase.database.reference.child("users")
             .child(id).get().addOnSuccessListener {
-                val listUserFromFirebase = mutableListOf<UserData>()
+                listUserFromFirebase.clear()
                 for (elem in it.children) {
                     val user: UserData = elem.getValue(UserData::class.java)!!
                     listUserFromFirebase.add(user)
@@ -80,8 +104,7 @@ class BaseFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    val adapterRecycler = CustomAdapter(listUserFromFirebase)
-                    binding.baseFragmentRecyclerViewRV.adapter = adapterRecycler
+                    adapterRecycler.updateAdapter(listUserFromFirebase)
                     adapterRecycler.notifyDataSetChanged()
                 }
             }
