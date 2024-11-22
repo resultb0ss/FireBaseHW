@@ -78,18 +78,23 @@ class BaseFragment : Fragment() {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun deleteUser(user: UserData) {
         val id = FirebaseAuth.getInstance().currentUser!!.uid
         val database = Firebase.database.reference.child("users")
             .child(id)
 
         database.child(user.name).removeValue().addOnSuccessListener {
-            readUsers()
             Toast.makeText(requireContext(), "Пользователь ${user.name} удален", Toast.LENGTH_SHORT)
                 .show()
         }.addOnFailureListener {
             Toast.makeText(requireContext(), "Пользователь не удален", Toast.LENGTH_SHORT).show()
         }
+
+        val index = search(listUserFromFirebase, user)
+        listUserFromFirebase.removeAt(index)
+        adapterRecycler.notifyDataSetChanged()
+
 
     }
 
@@ -132,4 +137,12 @@ class BaseFragment : Fragment() {
     }
 
 
+}
+
+private fun search(users: MutableList<UserData>, user: UserData): Int {
+    var result = -1
+    for (i in users.indices) {
+        if ((user.name == users[i].name) && (user.phone == users[i].phone)) result = i
+    }
+    return result
 }
