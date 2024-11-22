@@ -20,15 +20,19 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_postFragment"
-            app:destination="@id/postFragment" />
-        <action
             android:id="@+id/action_loginFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_baseFragment"
+            app:destination="@id/baseFragment" />
     </fragment>
     <fragment
-        android:id="@+id/postFragment"
-        android:name="com.example.firebasehw.PostFragment"
-        android:label="fragment_post"
-        tools:layout="@layout/fragment_post" />
+        android:id="@+id/baseFragment"
+        android:name="com.example.firebasehw.BaseFragment"
+        android:label="fragment_base"
+        tools:layout="@layout/fragment_base" >
+        <action
+            android:id="@+id/action_baseFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

@@ -1,33 +1,43 @@
 package com.example.firebasehw
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.firebasehw.databinding.ItemListViewBinding
 
-class CustomAdapter(private var mailList: MutableList<Mail>):
-    RecyclerView.Adapter<CustomAdapter.MailViewHolder>() {
+class CustomAdapter (var users: MutableList<UserData>):
+    RecyclerView.Adapter<CustomAdapter.UserViewHolder>() {
 
-    class MailViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val nameTv: TextView = itemView.findViewById(R.id.mailNameFromTV)
-        val mailTv: TextView = itemView.findViewById(R.id.mailTextTV)
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): UserViewHolder {
+
+        val binding = ItemListViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return UserViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return mailList.size
+    override fun getItemCount() = users.size
+
+    override fun onBindViewHolder(
+        holder: UserViewHolder,
+        position: Int
+    ) {
+        val user = users[position]
+        holder.binding.itemListUserNameTV.text = user.name.toString()
+        holder.binding.itemListUserPhoneTV.text = user.phone.toString()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MailViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_list_recycler_view, parent, false)
+    class UserViewHolder(val binding: ItemListViewBinding): RecyclerView.ViewHolder(binding.root){
 
-        return MailViewHolder(itemView)
-    }
+        }
 
-    override fun onBindViewHolder(holder: MailViewHolder, position: Int) {
-        val mail = mailList[position]
-        holder.nameTv.text = mail.nameFrom
-        holder.mailTv.text = mail.mail
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateAdapter(newList: MutableList<UserData>){
+        users = newList
+        notifyDataSetChanged()
+
     }
 }

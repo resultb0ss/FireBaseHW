@@ -49,7 +49,7 @@ class LoginFragment : Fragment() {
         auth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(requireActivity()) {
             if (it.isSuccessful) {
                 myToast("Успешный вход в систему")
-                findNavController().navigate(R.id.postFragment)
+                findNavController().navigate(R.id.baseFragment)
             } else {
                 myToast("Не удалось войти в систему")
                 binding.redirectSignUpTV.visibility = View.VISIBLE
