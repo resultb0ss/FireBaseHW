@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firebasehw.databinding.ItemListViewBinding
 
-class CustomAdapter (var users: MutableList<UserData>):
+class CustomAdapter(var users: MutableList<UserData>) :
     RecyclerView.Adapter<CustomAdapter.UserViewHolder>() {
 
 
@@ -15,7 +15,8 @@ class CustomAdapter (var users: MutableList<UserData>):
         viewType: Int
     ): UserViewHolder {
 
-        val binding = ItemListViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemListViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return UserViewHolder(binding)
     }
 
@@ -30,12 +31,12 @@ class CustomAdapter (var users: MutableList<UserData>):
         holder.binding.itemListUserPhoneTV.text = user.phone.toString()
     }
 
-    class UserViewHolder(val binding: ItemListViewBinding): RecyclerView.ViewHolder(binding.root){
+    class UserViewHolder(val binding: ItemListViewBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        }
+    }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateAdapter(newList: MutableList<UserData>){
+    fun updateAdapter(newList: MutableList<UserData>) {
         users = newList
         notifyDataSetChanged()
 

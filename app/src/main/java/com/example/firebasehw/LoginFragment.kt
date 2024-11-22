@@ -46,21 +46,28 @@ class LoginFragment : Fragment() {
         val email = binding.emailET.text.toString()
         val pass = binding.passwordET.text.toString()
 
-        auth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(requireActivity()) {
-            if (it.isSuccessful) {
-                myToast("Успешный вход в систему")
-                findNavController().navigate(R.id.baseFragment)
-            } else {
-                myToast("Не удалось войти в систему")
-                binding.redirectSignUpTV.visibility = View.VISIBLE
+        if (email.isNotEmpty() && pass.isNotEmpty()) {
+            auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(requireActivity()) {
+                if (it.isSuccessful) {
+                    myToast("Успешный вход в систему")
+                    findNavController().navigate(R.id.baseFragment)
+                } else {
+                    myToast("Не удалось войти в систему")
+                    binding.redirectSignUpTV.visibility = View.VISIBLE
+                }
             }
+        } else {
+            Toast.makeText(requireContext(), "Заполните необходимые поля", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
     private fun myToast(text: String) {
-        Toast.makeText(requireContext(),
+        Toast.makeText(
+            requireContext(),
             text,
-            Toast.LENGTH_SHORT).show()
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
 

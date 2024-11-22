@@ -23,7 +23,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainBinding.inflate(inflater,container,false)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -46,7 +46,7 @@ class MainFragment : Fragment() {
         val pass = binding.passwordSignUpEditText.text.toString()
         val confirmPass = binding.passwordSignUpEditText.text.toString()
 
-        if (email.isBlank() || pass.isBlank() || confirmPass.isBlank()){
+        if (email.isBlank() || pass.isBlank() || confirmPass.isBlank()) {
             myToast("Заполните все необходимые поля")
             return
         }
@@ -55,8 +55,8 @@ class MainFragment : Fragment() {
             return
         }
 
-        auth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(requireActivity()) {
-            if(it.isSuccessful) {
+        auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(requireActivity()) {
+            if (it.isSuccessful) {
                 myToast("Регистрация прошла успешно")
                 findNavController().navigate(R.id.loginFragment)
             } else {
@@ -72,9 +72,11 @@ class MainFragment : Fragment() {
     }
 
     private fun myToast(text: String) {
-        Toast.makeText(requireContext(),
+        Toast.makeText(
+            requireContext(),
             text,
-            Toast.LENGTH_SHORT).show()
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun onDestroyView() {

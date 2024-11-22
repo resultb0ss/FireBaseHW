@@ -1,10 +1,11 @@
 package com.example.firebasehw
 
-class UserData (
+class UserData(
     var name: String,
-    var phone: String) {
+    var phone: String
+) {
 
-    constructor(): this("","")
+    constructor() : this("", "")
 
     override fun toString(): String {
         return "Имя: $name, Номер телефона: $phone"
