@@ -84,14 +84,13 @@ class BaseFragment : Fragment() {
             .child(id)
 
         database.child(user.name).removeValue().addOnSuccessListener {
-
+            readUsers()
             Toast.makeText(requireContext(), "Пользователь ${user.name} удален", Toast.LENGTH_SHORT)
                 .show()
         }.addOnFailureListener {
             Toast.makeText(requireContext(), "Пользователь не удален", Toast.LENGTH_SHORT).show()
         }
 
-        adapterRecycler.notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
