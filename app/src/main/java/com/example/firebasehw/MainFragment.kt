@@ -44,7 +44,7 @@ class MainFragment : Fragment() {
     private fun signUpUser() {
         val email = binding.emailSignUpEditText.text.toString()
         val pass = binding.passwordSignUpEditText.text.toString()
-        val confirmPass = binding.passwordSignUpEditText.text.toString()
+        val confirmPass = binding.confirmPasswordSignUpEditText.text.toString()
 
         if (email.isBlank() || pass.isBlank() || confirmPass.isBlank()) {
             myToast("Заполните все необходимые поля")

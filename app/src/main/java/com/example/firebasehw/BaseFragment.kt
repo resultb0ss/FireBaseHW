@@ -80,20 +80,19 @@ class BaseFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun deleteUser(user: UserData) {
+        val index = search(listUserFromFirebase, user)
         val id = FirebaseAuth.getInstance().currentUser!!.uid
         val database = Firebase.database.reference.child("users")
             .child(id)
 
         database.child(user.name).removeValue().addOnSuccessListener {
+            listUserFromFirebase.removeAt(index)
+            adapterRecycler.notifyDataSetChanged()
             Toast.makeText(requireContext(), "Пользователь ${user.name} удален", Toast.LENGTH_SHORT)
                 .show()
         }.addOnFailureListener {
             Toast.makeText(requireContext(), "Пользователь не удален", Toast.LENGTH_SHORT).show()
         }
-
-        val index = search(listUserFromFirebase, user)
-        listUserFromFirebase.removeAt(index)
-        adapterRecycler.notifyDataSetChanged()
 
 
     }
